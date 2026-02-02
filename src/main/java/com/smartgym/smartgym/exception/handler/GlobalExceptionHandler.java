@@ -12,6 +12,9 @@ import java.time.Instant;
 import java.util.HashMap;
 import java.util.Map;
 
+import com.smartgym.smartgym.exception.TrainerScheduleConflictException;
+
+
 @RestControllerAdvice
 public class GlobalExceptionHandler {
 
@@ -44,6 +47,11 @@ public class GlobalExceptionHandler {
     public ResponseEntity<Map<String, Object>> generic(Exception ex) {
         return build(HttpStatus.INTERNAL_SERVER_ERROR, ex.getMessage());
     }
+    @ExceptionHandler(TrainerScheduleConflictException.class)
+    public ResponseEntity<Map<String, Object>> conflict(TrainerScheduleConflictException ex) {
+        return build(HttpStatus.CONFLICT, ex.getMessage());
+    }
+
 
     private ResponseEntity<Map<String, Object>> build(HttpStatus status, String message) {
         Map<String, Object> body = new HashMap<>();
