@@ -14,6 +14,10 @@ import java.util.Map;
 
 import com.smartgym.smartgym.exception.TrainerScheduleConflictException;
 
+import com.smartgym.smartgym.exception.CapacityExceededException;
+import com.smartgym.smartgym.exception.AlreadyRegisteredException;
+
+
 
 @RestControllerAdvice
 public class GlobalExceptionHandler {
@@ -51,6 +55,16 @@ public class GlobalExceptionHandler {
     public ResponseEntity<Map<String, Object>> conflict(TrainerScheduleConflictException ex) {
         return build(HttpStatus.CONFLICT, ex.getMessage());
     }
+    @ExceptionHandler(CapacityExceededException.class)
+    public ResponseEntity<Map<String, Object>> capacity(CapacityExceededException ex) {
+        return build(HttpStatus.CONFLICT, ex.getMessage());
+    }
+
+    @ExceptionHandler(AlreadyRegisteredException.class)
+    public ResponseEntity<Map<String, Object>> alreadyRegistered(AlreadyRegisteredException ex) {
+        return build(HttpStatus.CONFLICT, ex.getMessage());
+    }
+
 
 
     private ResponseEntity<Map<String, Object>> build(HttpStatus status, String message) {
