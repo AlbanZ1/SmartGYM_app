@@ -51,3 +51,4 @@ Thumbs.db
 *.h2.db
 *.mv.db
 data/
+*.trace.db
